@@ -6,11 +6,10 @@
     "space": {
       "projectType": "application",
       "schematics": {
-        "schematics": {
-          "@schematics/angular:component": {
-            "changeDetection": "OnPush",
-            "skipTests": true
-          }
+        "@schematics/angular:component": {
+          "style": "scss",
+          "changeDetection": "OnPush",
+          "skipTests": true
         }
       },
       "root": "",
