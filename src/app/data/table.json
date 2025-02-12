@@ -1,0 +1,16 @@
+{
+  "globalFilterFields": [
+    "firstname",
+    "lastname",
+    "gender",
+    "idNumber",
+    "mobile"
+  ],
+  "mainColumns": [
+    { "field": "firstname", "header": "First Name" },
+    { "field": "lastname", "header": "Last Name" },
+    { "field": "gender", "header": "Gender" },
+    { "field": "idNumber", "header": "ID Number" },
+    { "field": "mobile", "header": "Mobile" }
+  ]
+}

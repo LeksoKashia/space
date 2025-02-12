@@ -1,0 +1,29 @@
+@let darkMode = themeService.isDarkMode();
+<header class="navbar">
+  <a routerLink="/" class="logo">
+    <img
+      [src]="darkMode ? 'header/space-dark.svg' : 'header/space.svg'"
+      alt="icon"
+    />
+  </a>
+  <nav class="nav">
+    <p-button
+      (click)="themeService.toggleDarkMode()"
+      [icon]="darkMode ? 'pi pi-sun' : 'pi pi-moon'"
+      [rounded]="true"
+      severity="secondary"
+    />
+    <p-button
+      (click)="showDialog.set(true); clientAction.set('add')"
+      icon="pi pi-user-plus"
+      [rounded]="true"
+      severity="secondary"
+    />
+  </nav>
+</header>
+
+<space-add-edit-client
+  [visible]="showDialog()"
+  [action]="clientAction()"
+  (changeVisibility)="showDialog.set(false); clientAction.set('')"
+></space-add-edit-client>

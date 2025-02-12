@@ -1,0 +1,11 @@
+.spinner-container {
+  display: grid;
+  place-items: center;
+  height: calc(100vh - 90px);
+}
+
+.main {
+  width: 70%;
+  margin: 0 auto;
+  margin-top: 50px;
+}

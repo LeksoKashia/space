@@ -1,0 +1,185 @@
+{
+  "clients": [
+    {
+      "id": "98f2",
+      "firstname": "გიორგი",
+      "lastname": "ბერიძე",
+      "gender": "კაცი",
+      "idNumber": "01024567891",
+      "mobile": "555123456",
+      "legalAddress": {
+        "country": "საქართველო",
+        "city": "თბილისი",
+        "street": "რუსთაველის გამზირი"
+      },
+      "actualAddress": {
+        "country": "საქართველო",
+        "city": "თბილისი",
+        "street": "ჭავჭავაძის გამზირი"
+      }
+    },
+    {
+      "id": "bb51",
+      "firstname": "ნინო",
+      "lastname": "კაპანაძე",
+      "gender": "ქალი",
+      "idNumber": "01024567892",
+      "mobile": "555234567",
+      "legalAddress": {
+        "country": "საქართველო",
+        "city": "ქუთაისი",
+        "street": "აღმაშენებლის ქუჩა"
+      },
+      "actualAddress": {
+        "country": "საქართველო",
+        "city": "ქუთაისი",
+        "street": "აღმაშენებლის ქუჩა"
+      }
+    },
+    {
+      "id": "cc23",
+      "firstname": "ლევან",
+      "lastname": "მამალაძე",
+      "gender": "კაცი",
+      "idNumber": "01024567893",
+      "mobile": "555345678",
+      "legalAddress": {
+        "country": "საქართველო",
+        "city": "ბათუმი",
+        "street": "გორგასლის ქუჩა"
+      },
+      "actualAddress": {
+        "country": "საქართველო",
+        "city": "თბილისი",
+        "street": "პეკინის გამზირი"
+      }
+    },
+    {
+      "id": "dd45",
+      "firstname": "თამარ",
+      "lastname": "გელაშვილი",
+      "gender": "ქალი",
+      "idNumber": "01024567894",
+      "mobile": "555456789",
+      "legalAddress": {
+        "country": "საქართველო",
+        "city": "რუსთავი",
+        "street": "კოსტავას ქუჩა"
+      },
+      "actualAddress": {
+        "country": "საქართველო",
+        "city": "რუსთავი",
+        "street": "კოსტავას ქუჩა"
+      }
+    },
+    {
+      "id": "ee67",
+      "firstname": "დავით",
+      "lastname": "ჯავახიშვილი",
+      "gender": "კაცი",
+      "idNumber": "01024567895",
+      "mobile": "555567890",
+      "legalAddress": {
+        "country": "საქართველო",
+        "city": "გორი",
+        "street": "სტალინის გამზირი"
+      },
+      "actualAddress": {
+        "country": "საქართველო",
+        "city": "თბილისი",
+        "street": "ვაჟა-ფშაველას გამზირი"
+      }
+    },
+    {
+      "id": "ff89",
+      "firstname": "სოფიკო",
+      "lastname": "ლომიძე",
+      "gender": "ქალი",
+      "idNumber": "01024567896",
+      "mobile": "555678901",
+      "legalAddress": {
+        "country": "საქართველო",
+        "city": "თელავი",
+        "street": "ჭავჭავაძის ქუჩა"
+      },
+      "actualAddress": {
+        "country": "საქართველო",
+        "city": "თელავი",
+        "street": "ჭავჭავაძის ქუჩა"
+      }
+    },
+    {
+      "id": "gg12",
+      "firstname": "ზურაბ",
+      "lastname": "წერეთელი",
+      "gender": "კაცი",
+      "idNumber": "01024567897",
+      "mobile": "555789012",
+      "legalAddress": {
+        "country": "საქართველო",
+        "city": "ზუგდიდი",
+        "street": "რუსთაველის ქუჩა"
+      },
+      "actualAddress": {
+        "country": "საქართველო",
+        "city": "ზუგდიდი",
+        "street": "რუსთაველის ქუჩა"
+      }
+    },
+    {
+      "id": "hh34",
+      "firstname": "მარიამ",
+      "lastname": "გოგიჩაიშვილი",
+      "gender": "ქალი",
+      "idNumber": "01024567898",
+      "mobile": "555890123",
+      "legalAddress": {
+        "country": "საქართველო",
+        "city": "ფოთი",
+        "street": "აღმაშენებლის ქუჩა"
+      },
+      "actualAddress": {
+        "country": "საქართველო",
+        "city": "თბილისი",
+        "street": "საბურთალოს ქუჩა"
+      }
+    },
+    {
+      "id": "ii56",
+      "firstname": "ბექა",
+      "lastname": "კვარაცხელია",
+      "gender": "კაცი",
+      "idNumber": "01024567899",
+      "mobile": "555901234",
+      "legalAddress": {
+        "country": "საქართველო",
+        "city": "ოზურგეთი",
+        "street": "თავისუფლების ქუჩა"
+      },
+      "actualAddress": {
+        "country": "საქართველო",
+        "city": "ოზურგეთი",
+        "street": "თავისუფლების ქუჩა"
+      }
+    },
+    {
+      "id": "jj78",
+      "firstname": "ანა",
+      "lastname": "ჩიქოვანი",
+      "gender": "ქალი",
+      "idNumber": "01024567800",
+      "mobile": "555012345",
+      "legalAddress": {
+        "country": "საქართველო",
+        "city": "მცხეთა",
+        "street": "სვეტიცხოვლის ქუჩა"
+      },
+      "actualAddress": {
+        "country": "საქართველო",
+        "city": "მცხეთა",
+        "street": "სვეტიცხოვლის ქუჩა"
+      }
+    }
+  ],
+  "accounts": []
+}

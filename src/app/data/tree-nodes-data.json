@@ -1,0 +1,83 @@
+{
+  "treeNodes": [
+    {
+      "key": "0",
+      "label": "Legal Address",
+      "data": "Address Folder",
+      "icon": "pi pi-fw pi-briefcase",
+      "selectable": false,
+      "children": [
+        {
+          "key": "0-0",
+          "label": "countryL",
+          "data": "Country Data",
+          "icon": "pi pi-fw pi-globe"
+        },
+        {
+          "key": "0-1",
+          "label": "cityL",
+          "data": "City Data",
+          "icon": "pi pi-fw pi-map-marker"
+        },
+        {
+          "key": "0-2",
+          "label": "streetL",
+          "data": "Street Data",
+          "icon": "pi pi-fw pi-compass"
+        }
+      ]
+    },
+    {
+      "key": "1",
+      "label": "Actual Address",
+      "data": "Address Folder",
+      "icon": "pi pi-fw pi-home",
+      "selectable": false,
+      "children": [
+        {
+          "key": "1-0",
+          "label": "countryA",
+          "data": "Country Data",
+          "icon": "pi pi-fw pi-globe"
+        },
+        {
+          "key": "1-1",
+          "label": "cityA",
+          "data": "City Data",
+          "icon": "pi pi-fw pi-map-marker"
+        },
+        {
+          "key": "1-2",
+          "label": "streetA",
+          "data": "Street Data",
+          "icon": "pi pi-fw pi-compass"
+        }
+      ]
+    },
+
+    {
+      "key": "3",
+      "label": "firstname",
+      "data": "Client Data",
+      "icon": "pi pi-fw pi-user-edit"
+    },
+    {
+      "key": "4",
+      "label": "lastname",
+      "data": "Client Data",
+      "icon": "pi pi-fw pi-user-edit"
+    },
+    {
+      "key": "5",
+      "label": "gender",
+      "data": "Client Data",
+      "icon": "pi pi-fw pi-users"
+    },
+    {
+      "key": "6",
+      "label": "mobile",
+      "data": "Client Data",
+      "icon": "pi pi-fw pi-mobile"
+    }
+  ]
+}

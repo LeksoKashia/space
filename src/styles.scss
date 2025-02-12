@@ -1,1 +1,19 @@
 @import "primeicons/primeicons.css";
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: "Roboto", sans-serif;
+}
+
+html.my-app-dark {
+  background-color: #0b0f18;
+}
+
+.flex {
+  display: flex;
+}

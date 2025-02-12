@@ -1,0 +1,42 @@
+:host ::ng-deep {
+  .p-menu {
+    top: 50px !important;
+    left: 0 !important;
+  }
+  .pi-trash {
+    font-size: 1.1rem;
+    color: #dc3545;
+  }
+  .pi-user-edit {
+    font-size: 1.1rem;
+    color: #007bff;
+  }
+
+  .relative {
+    position: relative;
+  }
+  .flex {
+    display: flex;
+  }
+
+  .header-cell {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    cursor: pointer;
+    padding: 0.5rem;
+
+    // &:hover {
+    //   background-color: rgba(0, 0, 0, 0.04);
+    // }
+
+    // .pi-sort {
+    //   font-size: 0.875rem;
+    // }
+  }
+  .custom-th {
+    &:hover {
+      background-color: #1e293b;
+    }
+  }
+}

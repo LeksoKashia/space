@@ -1,0 +1,50 @@
+$header-padding: 10px 50px;
+$icon-size: 2rem;
+$gap-size: 30px;
+
+.navbar {
+  padding: $header-padding;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: var(--p-custom-headercolor);
+
+  .nav {
+    display: flex;
+    gap: $gap-size;
+
+    .nav-item {
+      display: flex;
+      align-items: center;
+      flex-direction: column;
+      gap: 5px;
+
+      i {
+        font-size: $icon-size;
+      }
+
+      .title {
+        color: var(--p-custom-svgcolor);
+        font-family: monospace;
+        font-size: 15px;
+      }
+    }
+  }
+
+  .theme-toggle {
+    background: transparent;
+    border: none;
+    cursor: pointer;
+
+    i {
+      font-size: $icon-size;
+    }
+  }
+}
+
+::ng-deep .pi {
+  color: var(--p-custom-svgcolor);
+}
+
+// buttonInfo: '#000000',
+// buttonInfoBorder: '#111111',

@@ -1,0 +1,84 @@
+<div class="form-container">
+  <form class="advanced-form" [formGroup]="filterForm">
+    <p-panel [toggleable]="true">
+      <ng-template #header>
+        <div>
+          <h1 class="filtering-title">Advanced Filtering</h1>
+          <div class="p-field">
+            <label for="selectedNodes"></label>
+            <p-treeselect
+              id="selectedNodes"
+              formControlName="selectedNodes"
+              [options]="nodes"
+              [metaKeySelection]="false"
+              selectionMode="multiple"
+              placeholder="Select Item"
+              styleClass="w-full"
+            ></p-treeselect>
+          </div>
+        </div>
+      </ng-template>
+      <ng-template #footer>
+        <div class="filter-footer">
+          <!-- <div class="flex items-center gap-2">
+            <p-button icon="pi pi-user" rounded text></p-button>
+            <p-button
+              icon="pi pi-bookmark"
+              severity="secondary"
+              rounded
+              text
+            ></p-button>
+          </div> -->
+          <div class="buttons">
+            <p-button
+              (click)="applyFilters()"
+              [disabled]="filterFiledsCount < 1"
+              label="Apply"
+              severity="success"
+            />
+            <p-button (click)="resetForm()" label="reset" severity="danger" />
+            <p-button (click)="clearForm()" label="clear" severity="info" />
+          </div>
+        </div>
+      </ng-template>
+      <ng-template #icons>
+        <p-button
+          icon="pi pi-cog"
+          severity="secondary"
+          rounded
+          text
+          (click)="menu.toggle($event)"
+        />
+        <p-menu #menu id="config_menu" [model]="items" [popup]="true" />
+      </ng-template>
+      <div class="dynamic-form m-0">
+        @if(filterFiledsCount > 0){
+        <!-- <p>Filters</p> -->
+        @for(control of filterForm.controls | keyvalue; track control){
+        @if(control.key !== 'selectedNodes'){
+        <p-floatLabel>
+          <input
+            pInputText
+            id="{{ control.key }}"
+            [formControlName]="control.key"
+          />
+          <label for="{{ control.key }}">{{ control.key }}</label>
+        </p-floatLabel>
+        } } }@else {
+        <!-- No filters are being applied  -->
+        }
+      </div>
+    </p-panel>
+    <!-- <p-panel [toggleable]="true">
+      <ng-template #header>
+        <h1 class="filtering-title">Simple filtering</h1>
+      </ng-template>
+      <div>
+        <p-floatLabel>
+          <input pInputText id="keyword" formControlName="keyword" />
+          <label for="keyword">keyword</label>
+        </p-floatLabel>
+      </div>
+    </p-panel> -->
+  </form>
+</div>
