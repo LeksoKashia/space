@@ -1,0 +1,213 @@
+<p-dialog
+  [header]="action() == 'edit' ? 'Edit Client' : 'Add Client'"
+  [modal]="true"
+  [(visible)]="visible"
+  (visibleChange)="onCancel()"
+>
+  <form [formGroup]="clientForm" (ngSubmit)="onSubmit()">
+    <div class="client-form">
+      <div class="image-container">
+        <p-image
+          [src]="imagePreview() || ''"
+          alt="Image"
+          width="250"
+          [preview]="true"
+        />
+      </div>
+      <div class="second-column">
+        <div style="padding-top: 20px">
+          <p-floatLabel>
+            <input
+              pInputText
+              id="firstname"
+              formControlName="firstname"
+              class="flex-auto"
+              autocomplete="off"
+            />
+            <label for="firstname">Firstname</label>
+          </p-floatLabel>
+          @if(clientForm.get('firstname')?.touched &&
+          clientForm.get('firstname')?.invalid){
+          <ul class="error">
+            @if( clientForm.get('firstname')?.errors?.['minlength'] ||
+            clientForm.get('firstname')?.errors?.['maxlength']){
+            <span>Length: min - 2, max - 50</span>
+            } @if(clientForm.get('firstname')?.errors?.['invalidCharacters']){
+            <span>Only Latin or Georgian</span>
+            }
+          </ul>
+          }
+        </div>
+
+        <div>
+          <p-floatLabel>
+            <input
+              pInputText
+              id="lastname"
+              formControlName="lastname"
+              class="flex-auto"
+              autocomplete="off"
+            />
+            <label for="lastname">Lastname</label>
+          </p-floatLabel>
+          @if(clientForm.get('lastname')?.touched &&
+          clientForm.get('lastname')?.invalid){
+          <ul class="error">
+            @if( clientForm.get('lastname')?.errors?.['minlength'] ||
+            clientForm.get('lastname')?.errors?.['maxlength']){
+            <span>Length: min - 2, max - 50</span>
+            } @if(clientForm.get('lastname')?.errors?.['invalidCharacters']){
+            <span>Only Latin or Georgian</span>
+            }
+          </ul>
+          }
+        </div>
+
+        <div>
+          <p-floatLabel>
+            <input
+              pInputText
+              id="idNumber"
+              mask="00000000000"
+              formControlName="idNumber"
+              class="flex-auto"
+              autocomplete="off"
+            />
+            <label for="idNumber">ID number</label>
+          </p-floatLabel>
+          @if( clientForm.get('idNumber')?.touched &&
+          clientForm.get('idNumber')?.invalid){
+          <ul class="error">
+            @if(clientForm.get('idNumber')?.errors?.['pattern']){
+            <span>Length 11 digits</span>
+            }
+          </ul>
+          }
+        </div>
+        <div>
+          <p-floatLabel>
+            <input
+              pInputText
+              id="mobile"
+              mask="(000) 000 000"
+              formControlName="mobile"
+              class="flex-auto"
+              [showMaskTyped]="true"
+              autocomplete="off"
+            />
+            <label for="mobile">Mobile</label>
+          </p-floatLabel>
+          @if(clientForm.get('mobile')?.touched &&
+          clientForm.get('mobile')?.invalid){
+          <ul class="error">
+            @if( clientForm.get('mobile')?.errors?.['minlength'] ||
+            clientForm.get('mobile')?.errors?.['maxlength']){
+            <span>Length: 9 digits</span>
+            } @if(clientForm.get('mobile')?.errors?.['pattern']){
+            <span>Startwith digit 5</span>
+            }
+          </ul>
+          }
+        </div>
+        <div class="flex mb-3" style="flex-direction: column">
+          <p-dropdown
+            id="gender"
+            formControlName="gender"
+            [options]="genders"
+            optionLabel="label"
+            optionValue="value"
+            placeholder="Select Gender"
+            class="flex-auto"
+          ></p-dropdown>
+        </div>
+      </div>
+      <div class="third-column">
+        <div class="child-form">
+          <p class="address">Legal Address</p>
+          <div class="child-group" formGroupName="legalAddress">
+            <input
+              pInputText
+              id="mobile"
+              formControlName="country"
+              class="flex-auto"
+              placeholder="Country"
+              autocomplete="off"
+            />
+            <input
+              pInputText
+              id="mobile"
+              formControlName="city"
+              placeholder="City"
+              class="flex-auto"
+              autocomplete="off"
+            />
+            <input
+              pInputText
+              id="mobile"
+              formControlName="street"
+              placeholder="Street"
+              class="flex-auto"
+              autocomplete="off"
+            />
+          </div>
+        </div>
+
+        <div class="child-form">
+          <p class="address">Actual Address</p>
+          <div class="child-group" formGroupName="actualAddress">
+            <input
+              pInputText
+              id="mobile"
+              formControlName="country"
+              placeholder="Country"
+              class="flex-auto"
+              autocomplete="off"
+            />
+            <input
+              pInputText
+              id="mobile"
+              formControlName="city"
+              placeholder="City"
+              class="flex-auto"
+              autocomplete="off"
+            />
+            <input
+              pInputText
+              id="mobile"
+              formControlName="street"
+              placeholder="Street"
+              class="flex-auto"
+              autocomplete="off"
+            />
+          </div>
+        </div>
+      </div>
+    </div>
+    <p-fileupload
+      name="demo[]"
+      url="https://www.primefaces.org/cdn/api/upload.php"
+      (onUpload)="onUpload($event)"
+      [multiple]="false"
+      accept="image/*"
+      maxFileSize="1000000"
+      mode="advanced"
+      toolip="aeeee"
+    >
+      <ng-template #empty>
+        <p-message severity="info">
+          <div>Drag and drop files, then click upload button</div>
+        </p-message>
+      </ng-template>
+      <ng-template #content>
+        @if(uploadedFiles.length){ @for(file of uploadedFiles; track file){
+        <div>{{ file.name }} - {{ file.size }} bytes</div>
+        } }
+      </ng-template>
+    </p-fileupload>
+
+    <div class="flex justify-content-end buttons">
+      <p-button label="Cancel" severity="secondary" (click)="onCancel()" />
+      <p-button [disabled]="clientForm.invalid" label="Save" type="submit" />
+    </div>
+  </form>
+</p-dialog>
