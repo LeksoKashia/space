@@ -22,7 +22,7 @@ export class DialogConfirmComponent {
     this.confirmationService.confirm({
       target: event.target as EventTarget,
       message: 'ნამდვილად გსურთ კლიენტის წაშლა ?',
-      header: 'Client Delition',
+      header: 'კლიენტის წაშლა',
       icon: 'pi pi-info-circle',
       rejectLabel: 'Cancel',
       rejectButtonProps: {
