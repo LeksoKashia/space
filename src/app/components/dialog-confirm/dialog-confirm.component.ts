@@ -2,7 +2,8 @@ import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { ConfirmDialog } from 'primeng/confirmdialog';
 import { ConfirmationService, MessageService } from 'primeng/api';
 import { ToastModule } from 'primeng/toast';
-import { clientStore } from '../../store/clients.store';
+import { ClientStore } from '../../store/clients.store';
+import { ToastService } from '../../services/toast.service';
 @Component({
   selector: 'space-dialog-confirm',
   imports: [ConfirmDialog, ToastModule],
@@ -12,9 +13,10 @@ import { clientStore } from '../../store/clients.store';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class DialogConfirmComponent {
-  clientStore = inject(clientStore);
+  clientStore = inject(ClientStore);
   confirmationService: ConfirmationService = inject(ConfirmationService);
   messageService: MessageService = inject(MessageService);
+  toastService = inject(ToastService);
 
   deleteRecord(event: Event, id: string) {
     this.confirmationService.confirm({
@@ -34,19 +36,10 @@ export class DialogConfirmComponent {
       },
 
       accept: () => {
-        this.messageService.add({
-          severity: 'info',
-          summary: 'Confirmed',
-          detail: 'Record deleted',
-        });
         this.clientStore.removeClient(id);
       },
       reject: () => {
-        this.messageService.add({
-          severity: 'error',
-          summary: 'Rejected',
-          detail: 'You have rejected',
-        });
+        this.toastService.showInfo('კლიენტის წაშლა გადავიფიქრეთ');
       },
     });
   }

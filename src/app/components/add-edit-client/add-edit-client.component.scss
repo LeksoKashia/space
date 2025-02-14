@@ -27,22 +27,6 @@
   .child-group {
     gap: 12px;
   }
-
-  .error {
-    margin: 0 0 0 3px;
-    display: flex;
-    flex-direction: column;
-    gap: 5px;
-    color: #dc2626;
-    font-size: 0.75rem;
-
-    span:first-child {
-      margin-top: 5px;
-    }
-    span:last-child {
-      // margin-bottom: 15px;
-    }
-  }
 }
 
 :host ::ng-deep {
@@ -53,4 +37,24 @@
     margin-top: 25px;
     gap: 15px;
   }
+}
+
+.error {
+  margin: 0 0 0 3px;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  color: #dc2626;
+  font-size: 0.75rem;
+
+  span:first-child {
+    margin-top: 5px;
+  }
+}
+
+.mismatch {
+  height: 40px;
+  text-align: right;
+  padding: 10px;
+  font-size: 0.8rem;
 }

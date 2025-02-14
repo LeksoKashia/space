@@ -13,7 +13,7 @@ import { DialogModule } from 'primeng/dialog';
 import { ButtonModule } from 'primeng/button';
 import { InputTextModule } from 'primeng/inputtext';
 import { DropdownModule } from 'primeng/dropdown';
-import { Gender } from '../../core/models/enums';
+import { Gender } from '../../core/const/model.enums';
 import {
   FormBuilder,
   FormGroup,
@@ -25,13 +25,14 @@ import { ImageModule } from 'primeng/image';
 import { FileUpload } from 'primeng/fileupload';
 import { MessageService } from 'primeng/api';
 import { CommonModule } from '@angular/common';
-import { clientStore } from '../../store/clients.store';
+import { ClientStore } from '../../store/clients.store';
 import { ToastModule } from 'primeng/toast';
 import { ToastService } from '../../services/toast.service';
 import { NgxMaskDirective, provideNgxMask } from 'ngx-mask';
 import { FloatLabelModule } from 'primeng/floatlabel';
 import { exclusiveLatinGeorgianValidator } from '../../core/validators/georgian-latin.validator';
 import { Message } from 'primeng/message';
+import { sameAlphabetValidator } from '../../core/validators/same-alphabet.validator';
 
 @Component({
   selector: 'space-add-edit-client',
@@ -61,21 +62,28 @@ export class AddEditClientComponent {
   @Output() changeVisibility = new EventEmitter();
   @Output() saveClient = new EventEmitter<Client>();
 
-  clientStore = inject(clientStore);
+  clientStore = inject(ClientStore);
   messageService = inject(MessageService);
   toastService = inject(ToastService);
+  fb: FormBuilder = inject(FormBuilder);
 
   clientForm!: FormGroup;
   imagePreview = signal('');
   uploadedFiles: any[] = [];
   genders: { label: string; value: Gender }[] = [
-    { label: 'Man', value: 'man' },
-    { label: 'Woman', value: 'woman' },
+    { label: 'კაცი', value: 'კაცი' },
+    { label: 'ქალი', value: 'ქალი' },
   ];
 
-  constructor(private fb: FormBuilder) {
-    this.initForm();
+  customPatterns = {
+    A: {
+      pattern: new RegExp('[a-zA-Z\u10A0-\u10FF ]'), // Latin and Georgian alphabets + spaces
+    },
+  };
 
+  constructor() {
+    this.initForm();
+    this.clientForm.markAllAsTouched();
     effect(() => {
       console.log(this.action());
 
@@ -90,48 +98,51 @@ export class AddEditClientComponent {
   }
 
   initForm() {
-    this.clientForm = this.fb.group({
-      firstname: [
-        '',
-        [
-          Validators.required,
-          Validators.minLength(2),
-          Validators.maxLength(50),
-          exclusiveLatinGeorgianValidator(),
+    this.clientForm = this.fb.group(
+      {
+        firstname: [
+          '',
+          [
+            Validators.required,
+            Validators.minLength(2),
+            Validators.maxLength(50),
+            exclusiveLatinGeorgianValidator(),
+          ],
         ],
-      ],
-      lastname: [
-        '',
-        [
-          Validators.required,
-          Validators.minLength(2),
-          Validators.maxLength(50),
-          exclusiveLatinGeorgianValidator(),
+        lastname: [
+          '',
+          [
+            Validators.required,
+            Validators.minLength(2),
+            Validators.maxLength(50),
+            exclusiveLatinGeorgianValidator(),
+          ],
         ],
-      ],
-      idNumber: ['', [Validators.required, Validators.pattern(/^\d{11}$/)]],
-      mobile: [
-        '',
-        [
-          Validators.required,
-          Validators.pattern(/^5/),
-          Validators.minLength(9),
-          Validators.maxLength(9),
+        idNumber: ['', [Validators.required, Validators.pattern(/^\d{11}$/)]],
+        mobile: [
+          '',
+          [
+            Validators.required,
+            Validators.pattern(/^5/),
+            Validators.minLength(9),
+            Validators.maxLength(9),
+          ],
         ],
-      ],
-      gender: ['', Validators.required],
-      legalAddress: this.fb.group({
-        country: ['', Validators.required],
-        city: ['', Validators.required],
-        street: ['', Validators.required],
-      }),
-      actualAddress: this.fb.group({
-        country: ['', Validators.required],
-        city: ['', Validators.required],
-        street: ['', Validators.required],
-      }),
-      image: [''],
-    });
+        gender: ['', Validators.required],
+        legalAddress: this.fb.group({
+          country: ['', Validators.required],
+          city: ['', Validators.required],
+          street: ['', Validators.required],
+        }),
+        actualAddress: this.fb.group({
+          country: ['', Validators.required],
+          city: ['', Validators.required],
+          street: ['', Validators.required],
+        }),
+        image: [''],
+      },
+      { validators: sameAlphabetValidator }
+    );
   }
 
   onSubmit(): void {
@@ -145,12 +156,10 @@ export class AddEditClientComponent {
         ...this.clientForm.value,
         id: this.client()?.id,
       });
-      this.toastService.showSuccess('Client successfully updated');
       this.onCancel();
     } else if (this.action() === 'add') {
       console.log('kaiaa');
       this.clientStore.addClient(this.clientForm.value);
-      this.toastService.showSuccess('Client successfully added');
       this.onCancel();
     }
   }
@@ -160,12 +169,13 @@ export class AddEditClientComponent {
     this.clientForm.reset();
     this.clientForm.get('mobile')?.markAsPristine();
     this.clientForm.get('mobile')?.markAsUntouched();
+    // this.toastService.showInfo('კლიენტის განახლება გადაფიქრულია');
     this.imagePreview.set('');
   }
 
   onUpload(event: any): void {
     this.uploadedFiles = event.files;
-    this.toastService.showSuccess('File uploaded successfully');
+    this.toastService.showInfo('ფაილი აიტვირთა');
     const file = event.files[0];
     if (file) {
       const reader = new FileReader();

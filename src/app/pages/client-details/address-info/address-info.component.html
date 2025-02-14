@@ -1,0 +1,33 @@
+<div class="info-grid">
+  <div class="info-column">
+    <div class="title">იურიდიული მისამართი</div>
+    <div class="field">
+      <div class="label">ქვეტანა</div>
+      <div class="value">{{ client().legalAddress.country }}</div>
+    </div>
+    <div class="field">
+      <div class="label">ქალაქი</div>
+      <div class="value">{{ client().legalAddress.city }}</div>
+    </div>
+    <div class="field">
+      <div class="label">ქუჩა</div>
+      <div class="value">{{ client().legalAddress.street }}</div>
+    </div>
+  </div>
+
+  <div class="info-column">
+    <div class="title">ფაქტიური მისამართი</div>
+    <div class="field">
+      <div class="label">ქვეტანა</div>
+      <div class="value">{{ client().actualAddress.country }}</div>
+    </div>
+    <div class="field">
+      <div class="label">ქალაქი</div>
+      <div class="value">{{ client().actualAddress.city }}</div>
+    </div>
+    <div class="field">
+      <div class="label">ქუჩა</div>
+      <div class="value">{{ client().actualAddress.street }}</div>
+    </div>
+  </div>
+</div>

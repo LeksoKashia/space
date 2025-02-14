@@ -10,15 +10,15 @@ export class ToastService {
   showSuccess(message: string): void {
     this.messageService.add({
       severity: 'success',
-      summary: 'Success',
+      summary: 'წარმატება',
       detail: message,
     });
   }
 
-  showError(message: string): void {
+  showError(message: string | undefined): void {
     this.messageService.add({
       severity: 'error',
-      summary: 'Error',
+      summary: 'პრობლემა',
       detail: message,
     });
   }
@@ -26,15 +26,15 @@ export class ToastService {
   showInfo(message: string): void {
     this.messageService.add({
       severity: 'info',
-      summary: 'Info',
+      summary: 'ინფორმაციული',
       detail: message,
     });
   }
 
   showWarn(message: string): void {
     this.messageService.add({
-      severity: 'warn',
-      summary: 'Warning',
+      severity: 'warning',
+      summary: 'გაფრთხილება',
       detail: message,
     });
   }

@@ -20,14 +20,15 @@ import { InputTextModule } from 'primeng/inputtext';
 import { NodeService } from '../../services/node.service';
 import { TreeSelectModule } from 'primeng/treeselect';
 import { CommonModule } from '@angular/common';
-import { clientStore } from '../../store/clients.store';
+import { ClientStore } from '../../store/clients.store';
 import { PanelModule } from 'primeng/panel';
 import { AvatarModule } from 'primeng/avatar';
 import { ButtonModule } from 'primeng/button';
 import { MenuModule } from 'primeng/menu';
 import { TreeNode } from '../../core/models/node.model';
 import { PrimeIcons } from 'primeng/api';
-
+import { Tooltip } from 'primeng/tooltip';
+import { debounceTime, distinctUntilChanged } from 'rxjs';
 @Component({
   selector: 'space-advanced-filter',
   imports: [
@@ -42,14 +43,16 @@ import { PrimeIcons } from 'primeng/api';
     AvatarModule,
     ButtonModule,
     MenuModule,
+    Tooltip,
   ],
   templateUrl: './advanced-filter.component.html',
   styleUrl: './advanced-filter.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class AdvancedFilterComponent {
-  clientStore = inject(clientStore);
+  clientStore = inject(ClientStore);
   fb: FormBuilder = inject(FormBuilder);
+  nodeService = inject(NodeService);
   nodes: TreeNode[] = [];
   filterForm: FormGroup;
   filter: any;
@@ -61,10 +64,14 @@ export class AdvancedFilterComponent {
     command?: () => void;
   }[] = [];
 
-  constructor(private nodeService: NodeService) {
+  simpleFiltering!: FormGroup;
+
+  constructor() {
     this.filterForm = this.fb.group({
       selectedNodes: [null],
-      // keyword: [null],
+    });
+    this.simpleFiltering = this.fb.group({
+      keyword: [''],
     });
   }
 
@@ -75,26 +82,29 @@ export class AdvancedFilterComponent {
     this.initalizeForm();
     this.items = [
       {
-        label: 'Reset',
+        label: 'წაშლა',
         icon: PrimeIcons.TRASH,
         command: () => this.resetForm(),
       },
       {
-        label: 'Clear',
+        label: 'გასუფთავება',
         icon: PrimeIcons.FILTER,
         command: () => this.clearForm(),
       },
-      // {
-      //   separator: true,
-      // },
-      // {
-      //   label: 'Delete',
-      //   icon: 'pi pi-times',
-      // },
     ];
+
+    // Subscribe to keyword changes
+    this.simpleFiltering
+      .get('keyword')
+      ?.valueChanges.pipe(
+        debounceTime(300), // Wait for 300ms pause in typing
+        distinctUntilChanged()
+      )
+      .subscribe((keyword) => {
+        this.clientStore.updateFilter({ globalSearch: keyword });
+      });
   }
 
-  //actions
   applyFilters() {
     const filterData: { [key: string]: any } = {};
 
@@ -133,6 +143,7 @@ export class AdvancedFilterComponent {
         this.filterForm.get(control)?.patchValue('');
       }
     });
+    localStorage.removeItem('filter');
     this.clientStore.updateFilter({});
   }
 
@@ -161,7 +172,6 @@ export class AdvancedFilterComponent {
   }
 
   private initalizeForm() {
-    // Load saved form state
     const savedForm = localStorage.getItem('filterForm');
     if (savedForm) {
       try {

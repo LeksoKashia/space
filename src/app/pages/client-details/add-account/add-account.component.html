@@ -1,0 +1,93 @@
+<form [formGroup]="accountForm" (ngSubmit)="onSubmit()">
+  <div class="form-container flex">
+    <div class="form-section" style="width: 60%">
+      <h3 class="section-label" for="card">ანგარიშის ნომერი</h3>
+      <div class="flex" style="flex-direction: column; gap: 8px">
+        <input
+          pInputText
+          placeholder="ანგარიშის ნომერი"
+          formControlName="accountNumber"
+          id="username"
+          mask="0 0 0 0 0 0 0 0"
+          [showMaskTyped]="true"
+          aria-describedby="username-help"
+        />
+        @if(accountForm.get('accountNumber')?.invalid &&
+        accountForm.get('accountNumber')?.touched &&
+        !accountForm.get('accountNumber')?.errors?.['accountNumberExists']){
+        <small class="error-message">გთხოვთ შეიყვანოთ 8 ციფრი</small>
+        }
+        @if(accountForm.get('accountNumber')?.errors?.['accountNumberExists']){
+        <small class="error-message"
+          >ეს ანგარიში ბაზაშია, გთხოვთ სხვა სცადეთ</small
+        >
+        } @if(accountForm.get('accountNumber')?.pending){
+        <small class="pending"
+          >მიმდინარეობს ანგარიშის უნიკალურობის დამოწმება...</small
+        >
+        } @if(accountForm.get('accountNumber')?.valid){
+        <small class="success">ანგარიშის ნომერი არის უნიკალური</small>
+        }
+      </div>
+    </div>
+    <div class="form-section">
+      <h3 class="section-label">ანგარიშის ტიპი</h3>
+      <div class="options-container" style="display: flex; gap: 15px">
+        @for(type of accountTypes; track type){
+        <div class="option-item">
+          <p-radioButton
+            [inputId]="type.id"
+            [value]="type.value"
+            formControlName="type"
+            name="type"
+          >
+          </p-radioButton>
+          <label [for]="type.id" class="option-label">{{ type.value }}</label>
+        </div>
+        }
+      </div>
+      <small
+        class="error-message"
+        *ngIf="accountForm.get('type')?.errors?.['required'] && accountForm.get('type')?.touched"
+      >
+        გთხოვთ აირჩიოთ
+      </small>
+    </div>
+
+    <div class="form-section">
+      <h3 class="section-label">ვალუტა</h3>
+
+      <div
+        class="options-container"
+        style="display: flex; gap: 15px; padding: 10px 10px 10px 0"
+      >
+        @for(curr of currency; track curr){
+        <div class="option-item">
+          <p-checkbox
+            [inputId]="curr.id"
+            [value]="curr.value"
+            formControlName="currency"
+            name="currency"
+          >
+          </p-checkbox>
+          <label [for]="curr.id" class="option-label">{{ curr.value }}</label>
+        </div>
+        }
+      </div>
+      @if(accountForm.get('currency')?.errors?.['required'] &&
+      accountForm.get('currency')?.touched){
+      <small class="error-message"> გთხოვთ სულ მცირე ერთ ვალუტა აირჩიოთ</small>
+      }
+    </div>
+
+    <div class="button-container">
+      <p-button
+        type="submit"
+        label="დამატება"
+        [disabled]="accountForm.invalid"
+        styleClass="submit-button"
+      >
+      </p-button>
+    </div>
+  </div>
+</form>

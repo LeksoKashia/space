@@ -1,8 +1,8 @@
 import { Address } from './address.model';
-import { Gender } from './enums';
+import { Gender } from '../const/model.enums';
 
 export interface Client {
-  id: string;
+  id: number;
   firstname: string;
   lastname: string;
   gender: Gender;
@@ -11,5 +11,4 @@ export interface Client {
   legalAddress: Address;
   actualAddress: Address;
   image?: string;
-  // [key: string]: any;
 }

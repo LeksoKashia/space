@@ -1,5 +1,5 @@
 <p-dialog
-  [header]="action() == 'edit' ? 'Edit Client' : 'Add Client'"
+  [header]="action() == 'edit' ? 'კლიენტის განახლება' : 'კლიენტის დამატება'"
   [modal]="true"
   [(visible)]="visible"
   (visibleChange)="onCancel()"
@@ -24,16 +24,16 @@
               class="flex-auto"
               autocomplete="off"
             />
-            <label for="firstname">Firstname</label>
+            <label for="firstname">სახელი</label>
           </p-floatLabel>
           @if(clientForm.get('firstname')?.touched &&
           clientForm.get('firstname')?.invalid){
           <ul class="error">
             @if( clientForm.get('firstname')?.errors?.['minlength'] ||
             clientForm.get('firstname')?.errors?.['maxlength']){
-            <span>Length: min - 2, max - 50</span>
+            <span>სიგრძე 2-სა და 50-ს შორის</span>
             } @if(clientForm.get('firstname')?.errors?.['invalidCharacters']){
-            <span>Only Latin or Georgian</span>
+            <span>მხოლოდ ქართული ან ლათინური</span>
             }
           </ul>
           }
@@ -48,16 +48,16 @@
               class="flex-auto"
               autocomplete="off"
             />
-            <label for="lastname">Lastname</label>
+            <label for="lastname">გვარი</label>
           </p-floatLabel>
           @if(clientForm.get('lastname')?.touched &&
           clientForm.get('lastname')?.invalid){
           <ul class="error">
             @if( clientForm.get('lastname')?.errors?.['minlength'] ||
             clientForm.get('lastname')?.errors?.['maxlength']){
-            <span>Length: min - 2, max - 50</span>
+            <span>სიგრძე 2-სა და 50-ს შორის</span>
             } @if(clientForm.get('lastname')?.errors?.['invalidCharacters']){
-            <span>Only Latin or Georgian</span>
+            <span>მხოლოდ ქართული ან ლათნური</span>
             }
           </ul>
           }
@@ -73,13 +73,13 @@
               class="flex-auto"
               autocomplete="off"
             />
-            <label for="idNumber">ID number</label>
+            <label for="idNumber">პირადი ნომერი</label>
           </p-floatLabel>
           @if( clientForm.get('idNumber')?.touched &&
           clientForm.get('idNumber')?.invalid){
           <ul class="error">
             @if(clientForm.get('idNumber')?.errors?.['pattern']){
-            <span>Length 11 digits</span>
+            <span>გთხოვთ შეიყვანეთ 11 ციფრი</span>
             }
           </ul>
           }
@@ -95,7 +95,7 @@
               [showMaskTyped]="true"
               autocomplete="off"
             />
-            <label for="mobile">Mobile</label>
+            <label for="mobile">მობლიური</label>
           </p-floatLabel>
           @if(clientForm.get('mobile')?.touched &&
           clientForm.get('mobile')?.invalid){
@@ -104,7 +104,7 @@
             clientForm.get('mobile')?.errors?.['maxlength']){
             <span>Length: 9 digits</span>
             } @if(clientForm.get('mobile')?.errors?.['pattern']){
-            <span>Startwith digit 5</span>
+            <span>გთხოვთ დაიწყეთ ციფრი 5-ით</span>
             }
           </ul>
           }
@@ -116,28 +116,32 @@
             [options]="genders"
             optionLabel="label"
             optionValue="value"
-            placeholder="Select Gender"
+            placeholder="აირჩიეთ სქესი"
             class="flex-auto"
           ></p-dropdown>
         </div>
       </div>
       <div class="third-column">
         <div class="child-form">
-          <p class="address">Legal Address</p>
+          <p class="address">იურიდიული მისამართ</p>
           <div class="child-group" formGroupName="legalAddress">
             <input
               pInputText
               id="mobile"
               formControlName="country"
               class="flex-auto"
-              placeholder="Country"
+              placeholder="ქვეყანა"
+              mask="A*"
+              [patterns]="customPatterns"
               autocomplete="off"
             />
             <input
               pInputText
               id="mobile"
               formControlName="city"
-              placeholder="City"
+              placeholder="ქალაქი"
+              mask="A*"
+              [patterns]="customPatterns"
               class="flex-auto"
               autocomplete="off"
             />
@@ -145,7 +149,9 @@
               pInputText
               id="mobile"
               formControlName="street"
-              placeholder="Street"
+              placeholder="ქუჩა"
+              mask="A*"
+              [patterns]="customPatterns"
               class="flex-auto"
               autocomplete="off"
             />
@@ -153,13 +159,15 @@
         </div>
 
         <div class="child-form">
-          <p class="address">Actual Address</p>
+          <p class="address">ფაქტიური მისამართი</p>
           <div class="child-group" formGroupName="actualAddress">
             <input
               pInputText
               id="mobile"
               formControlName="country"
-              placeholder="Country"
+              placeholder="ქვეყანა"
+              mask="A*"
+              [patterns]="customPatterns"
               class="flex-auto"
               autocomplete="off"
             />
@@ -167,7 +175,9 @@
               pInputText
               id="mobile"
               formControlName="city"
-              placeholder="City"
+              placeholder="ქალაქი"
+              mask="A*"
+              [patterns]="customPatterns"
               class="flex-auto"
               autocomplete="off"
             />
@@ -175,7 +185,9 @@
               pInputText
               id="mobile"
               formControlName="street"
-              placeholder="Street"
+              placeholder="ქუჩა"
+              mask="A*"
+              [patterns]="customPatterns"
               class="flex-auto"
               autocomplete="off"
             />
@@ -183,6 +195,13 @@
         </div>
       </div>
     </div>
+    @if(clientForm.errors?.['mismatchedAlphabet']){
+    <small class="error mismatch">
+      სახელი და გვარი ერთი დამწერლობის უნდა იყოს(ლათნური ან ქართული)
+    </small>
+    }@else {
+    <small class="error"> </small>
+    }
     <p-fileupload
       name="demo[]"
       url="https://www.primefaces.org/cdn/api/upload.php"
@@ -195,7 +214,9 @@
     >
       <ng-template #empty>
         <p-message severity="info">
-          <div>Drag and drop files, then click upload button</div>
+          <div>
+            შესაძლებელია ფაილის drag and drop, ჩაგდების შემდეგ upload-ს დააჭირეთ
+          </div>
         </p-message>
       </ng-template>
       <ng-template #content>
@@ -206,8 +227,12 @@
     </p-fileupload>
 
     <div class="flex justify-content-end buttons">
-      <p-button label="Cancel" severity="secondary" (click)="onCancel()" />
-      <p-button [disabled]="clientForm.invalid" label="Save" type="submit" />
+      <p-button label="დახურვა" severity="secondary" (click)="onCancel()" />
+      <p-button
+        [disabled]="clientForm.invalid"
+        label="დამატება"
+        type="submit"
+      />
     </div>
   </form>
 </p-dialog>

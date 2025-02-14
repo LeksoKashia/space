@@ -1,0 +1,46 @@
+<div class="card">
+  <h2 class="card-title">
+    კლიენტს აქვს {{ currentStore.currentClientAccounts().length }} ანგარიში
+  </h2>
+  <p-galleria
+    [containerStyle]="{ 'max-width': '640px' }"
+    [numVisible]="3"
+    [value]="currentStore.currentClientAccounts()"
+  >
+    <ng-template #item let-item>
+      <div class="display flex">
+        <!-- <figure>
+          <img src="account-info/card.svg" alt="" />
+        </figure> -->
+        <div class="flex">
+          <label class="label">ანგარიშის ნომერი - </label>
+          <p class="value">{{ item.accountNumber }}</p>
+        </div>
+        <div class="flex">
+          <label class="label">ვალუტა - </label>
+          <p class="value">{{ item.currency }}</p>
+        </div>
+        <div class="flex">
+          <label class="label">სტატუსი - </label>
+          <p class="value">{{ item.status }}</p>
+        </div>
+        <div class="flex">
+          <label class="label">ანგარიშის ტიპი - </label>
+          <p class="value">{{ item.type }}</p>
+        </div>
+      </div>
+      <p-button
+        (click)="closeAccount(item)"
+        class="close"
+        [label]="item.status === 'დახურული' ? 'აღდგენა' : 'დახურვა'"
+        [severity]="item.status === 'დახურული' ? 'success' : 'danger'"
+      />
+    </ng-template>
+    <ng-template #thumbnail let-item>
+      <div class="preview-container">
+        <img src="account-info/card.svg" alt="" />
+        <p style="color: white;">ID - {{ item.id }}</p>
+      </div>
+    </ng-template>
+  </p-galleria>
+</div>

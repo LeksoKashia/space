@@ -10,17 +10,30 @@
   #dt
   [value]="clients"
   [paginator]="true"
-  [rows]="5"
+  [defaultSortOrder]="-1"
+  [loading]="clientStore.isLoading()"
+  [rows]="pagination().pageSize"
+  [lazy]="true"
+  [totalRecords]="pagination().totalCount"
+  [first]="(pagination().pageIndex - 1) * pagination().pageSize"
   [rowsPerPageOptions]="[5, 10, 20]"
   [sortMode]="'multiple'"
   [globalFilterFields]="globalFilterFields"
+  (onSort)="onSortChange($event)"
+  (onPage)="onPageChange($event)"
 >
   <ng-template pTemplate="header">
     <tr>
       @for(column of mainColumns; track column){
-      <th pSortableColumn="{{ column.field }}">
+      <th
+        pSortableColumn="{{ column.field }}"
+        [ngClass]="{ 'sorted-column': currentSort?.field === column.field }"
+      >
         {{ column.header }}
-        <p-sortIcon [field]="column.field"></p-sortIcon>
+        <p-sortIcon
+          [field]="column.field"
+          [ngClass]="{ 'active-sort': currentSort?.field === column.field }"
+        ></p-sortIcon>
       </th>
       }
       <th>Legal Address</th>
@@ -28,6 +41,7 @@
       <th>Actions</th>
     </tr>
   </ng-template>
+
   <ng-template pTemplate="body" let-client>
     <tr>
       <td>{{ client.firstname }}</td>
@@ -64,7 +78,7 @@
           ></p-button>
 
           <p-button
-            (click)="deleteClient($event, client.id)"
+            [routerLink]="['/client', client.id]"
             icon="pi pi-user"
             severity="secondary"
             pTooltip="delete"
@@ -73,6 +87,14 @@
             text
           ></p-button>
         </div>
+      </td>
+    </tr>
+  </ng-template>
+
+  <ng-template pTemplate="emptymessage">
+    <tr>
+      <td colspan="8" class="text-center">
+        <i class="pi pi-info-circle"></i> No clients found
       </td>
     </tr>
   </ng-template>

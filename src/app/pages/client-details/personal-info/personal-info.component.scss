@@ -1,0 +1,27 @@
+.info-grid {
+  display: flex;
+  gap: 30px;
+
+  .info-column {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    .field {
+      display: flex;
+      flex-direction: column;
+      gap: 3px;
+
+      .label {
+        font-size: 15px;
+        color: var(--p-custom-panelcolor);
+        font-weight: bold;
+      }
+
+      .value {
+        font-size: 13px;
+        color: var(--p-custom-panelcolor);
+        filter: brightness(80%);
+      }
+    }
+  }
+}

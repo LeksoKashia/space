@@ -39,8 +39,12 @@ export const MyPreset = definePreset(Aura, {
           focusColor: '#ffffff',
         },
         custom: {
+          cardcolor: '{green.500}',
           headercolor: '{blue.600}',
           buttoninfo: '#0ea5e9',
+          infogrid: '{green.500}',
+          contentwrapper: '#ffffff',
+          panelcolor: '#171717',
         },
       },
       dark: {
@@ -82,6 +86,9 @@ export const MyPreset = definePreset(Aura, {
           headercolor: '#030712',
           svgcolor: '#818cf8',
           buttoninfo: '#0c0f38',
+          infogrid: '#03071280',
+          contentwrapper: '#0f172a',
+          panelcolor: '#fafafa',
         },
       },
     },

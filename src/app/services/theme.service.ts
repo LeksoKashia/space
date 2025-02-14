@@ -16,7 +16,6 @@ export class ThemeService {
     localStorage.setItem('darkMode', JSON.stringify(this.isDarkMode()));
   }
 
-
   private applyTheme() {
     const htmlElement = document.documentElement;
     if (this.isDarkMode()) {
@@ -25,8 +24,8 @@ export class ThemeService {
       htmlElement.classList.remove('my-app-dark');
     }
   }
-
   private getStoredTheme(): boolean {
-    return JSON.parse(localStorage.getItem('darkMode') || 'false');
+    const storedTheme = localStorage.getItem('darkMode');
+    return storedTheme !== null ? JSON.parse(storedTheme) : true;
   }
 }

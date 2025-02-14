@@ -1,0 +1,55 @@
+::ng-deep {
+  .close {
+    align-self: flex-start;
+    padding: 15px;
+  }
+
+  .p-galleria-item {
+    justify-content: space-evenly !important;
+  }
+}
+
+.card-title {
+  padding: 10px;
+  font-size: 20px;
+}
+.display {
+  padding-top: 15px;
+  flex-direction: column;
+  gap: 15px;
+  div {
+    gap: 7px;
+    align-items: center;
+  }
+}
+
+.preview-container {
+  position: relative;
+  width: 90px;
+  height: 90px;
+  overflow: hidden;
+
+  img {
+    position: relative;
+    width: 100%;
+    height: 100%;
+  }
+
+  p {
+    position: absolute;
+    top: 45px;
+    left: 10px;
+  }
+}
+
+.label {
+  font-size: 16px;
+  color: var(--p-custom-panelcolor);
+  font-weight: bold;
+}
+
+.value {
+  font-size: 14px;
+  color: var(--p-custom-panelcolor);
+  filter: brightness(80%);
+}

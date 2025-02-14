@@ -3,7 +3,7 @@
     <p-panel [toggleable]="true">
       <ng-template #header>
         <div>
-          <h1 class="filtering-title">Advanced Filtering</h1>
+          <h1 class="filtering-title">დეტალური ფილტრი</h1>
           <div class="p-field">
             <label for="selectedNodes"></label>
             <p-treeselect
@@ -12,7 +12,7 @@
               [options]="nodes"
               [metaKeySelection]="false"
               selectionMode="multiple"
-              placeholder="Select Item"
+              placeholder="აირჩიე ინფუთი"
               styleClass="w-full"
             ></p-treeselect>
           </div>
@@ -20,24 +20,29 @@
       </ng-template>
       <ng-template #footer>
         <div class="filter-footer">
-          <!-- <div class="flex items-center gap-2">
-            <p-button icon="pi pi-user" rounded text></p-button>
-            <p-button
-              icon="pi pi-bookmark"
-              severity="secondary"
-              rounded
-              text
-            ></p-button>
-          </div> -->
           <div class="buttons">
             <p-button
               (click)="applyFilters()"
               [disabled]="filterFiledsCount < 1"
-              label="Apply"
+              label="გაფილტვრა"
+              pTooltip="გაააქტიურე ფილტრები"
+              tooltipPosition="right"
               severity="success"
             />
-            <p-button (click)="resetForm()" label="reset" severity="danger" />
-            <p-button (click)="clearForm()" label="clear" severity="info" />
+            <p-button
+              (click)="resetForm()"
+              label="წაშლა"
+              pTooltip="წაშალე გასაფილტრი ინფუთები"
+              tooltipPosition="right"
+              severity="danger"
+            />
+            <p-button
+              (click)="clearForm()"
+              pTooltip="გასაფილტრი ინფუთების გასუფთავება"
+              tooltipPosition="right"
+              label="გასუფთავება"
+              severity="info"
+            />
           </div>
         </div>
       </ng-template>
@@ -65,20 +70,27 @@
           <label for="{{ control.key }}">{{ control.key }}</label>
         </p-floatLabel>
         } } }@else {
-        <!-- No filters are being applied  -->
+        <p class="no-filters">არცერთი ფილტრი არაა დამატებული</p>
+
         }
       </div>
     </p-panel>
-    <!-- <p-panel [toggleable]="true">
+    <p-panel [toggleable]="true">
       <ng-template #header>
-        <h1 class="filtering-title">Simple filtering</h1>
+        <h1 class="filtering-title">გლობალური ფილტრი</h1>
       </ng-template>
-      <div>
+      <form class="global-search" [formGroup]="simpleFiltering">
         <p-floatLabel>
-          <input pInputText id="keyword" formControlName="keyword" />
-          <label for="keyword">keyword</label>
+          <input
+            pInputText
+            formControlName="keyword"
+            type="text"
+            id="keyword"
+            class="your-input-classes"
+          />
+          <label for="keyword">ძებნა ყველა მონაცემში...</label>
         </p-floatLabel>
-      </div>
-    </p-panel> -->
+      </form>
+    </p-panel>
   </form>
 </div>

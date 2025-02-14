@@ -1,0 +1,16 @@
+{
+  "accountTypes": [
+    { "value": "მიმდინარე", "id": "acc_current" },
+    { "value": "შემნახველი", "id": "acc_savings" },
+    {
+      "label": "დაგროვებითი",
+      "value": "დაგროვებითი",
+      "id": "acc_accumulation"
+    }
+  ],
+  "currency": [
+    { "value": "GEL", "id": "curr_gel" },
+    { "value": "USD", "id": "curr_usd" },
+    { "value": "EUR", "id": "curr_eur" }
+  ]
+}

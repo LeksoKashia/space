@@ -1,9 +1,10 @@
-import { AccountStatus, AccountType, Currency } from './enums';
+import { AccountStatus, AccountType, Currency } from '../const/model.enums';
 
 export interface Account {
-  accountNumber: number;
-  cliendId: number;
+  id: number;
+  accountNumber: string;
+  clientId: number;
   type: AccountType;
-  currency: Currency;
+  currency: Currency[];
   status: AccountStatus;
 }

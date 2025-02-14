@@ -1,6 +1,6 @@
 import { Routes } from '@angular/router';
-import { HomeComponent } from './pages/home/home.component';
 import { AppUrlEnum } from './core/const/routes.const';
+import { clientDetailsRoutes } from './pages/client-details/client-details.routes';
 
 export const routes: Routes = [
   {
@@ -13,10 +13,13 @@ export const routes: Routes = [
     loadComponent: () =>
       import('./pages/home/home.component').then((m) => m.HomeComponent),
   },
-
+  {
+    path: AppUrlEnum.CLIENT,
+    children: clientDetailsRoutes,
+  },
   {
     path: '**',
-    pathMatch: 'full',
     redirectTo: `/${AppUrlEnum.CLIENT}/${AppUrlEnum.LIST}`,
+    pathMatch: 'full',
   },
 ];

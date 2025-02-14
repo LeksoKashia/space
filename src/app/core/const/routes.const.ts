@@ -3,4 +3,7 @@ export enum AppUrlEnum {
   ADD = 'add',
   LIST = 'list',
   DETAILS = 'details',
+  PERSONAL = 'personal',
+  ADDRESS = 'address',
+  ACCOUNT = 'account'
 }

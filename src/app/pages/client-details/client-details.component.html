@@ -1,0 +1,32 @@
+<div class="content-wrapper">
+  <p-card @fadeIn>
+    <img
+      class="avatar"
+      [@scaleUp]="avatarState"
+      (mouseenter)="onMouseEnter()"
+      (mouseleave)="onMouseLeave()"
+      [src]="client().image || 'placeholder.png'"
+      alt="Profile"
+    />
+    <h2 class="client-name">
+      {{ client().firstname }} {{ client().lastname }}
+    </h2>
+    <span class="client-id">ID: {{ client().idNumber }}</span>
+  </p-card>
+
+  <div class="details-section">
+    <p-tabs [value]="value()">
+      <p-tablist>
+        <p-tab routerLink="./personal" [value]="0" @slideIn>პერსონალური</p-tab>
+        <p-tab routerLink="./address" [value]="1" @slideIn>მისამართი</p-tab>
+        <p-tab routerLink="./account" [value]="2" @slideIn>ანგარიშები</p-tab>
+        <p-tab routerLink="./account/add" [value]="3" @slideIn
+          >ანგარიშის დამტება</p-tab
+        >
+      </p-tablist>
+      <p-tabpanels>
+        <router-outlet></router-outlet>
+      </p-tabpanels>
+    </p-tabs>
+  </div>
+</div>

@@ -1,6 +1,7 @@
 import {
   ChangeDetectionStrategy,
   Component,
+  computed,
   inject,
   Input,
   signal,
@@ -28,7 +29,10 @@ import { MenuItem } from 'primeng/api';
 import { AddressPipe } from '../../core/pipes/address.pipe';
 import { Tooltip } from 'primeng/tooltip';
 import { DialogConfirmComponent } from '../dialog-confirm/dialog-confirm.component';
-import { AddEditClientComponent } from '../../shared/add-edit-client/add-edit-client.component';
+import { AddEditClientComponent } from '../add-edit-client/add-edit-client.component';
+import { RouterLink } from '@angular/router';
+import { AppUrlEnum } from '../../core/const/routes.const';
+import { ClientStore } from '../../store/clients.store';
 
 @Component({
   selector: 'space-client-list',
@@ -37,6 +41,7 @@ import { AddEditClientComponent } from '../../shared/add-edit-client/add-edit-cl
     PaginatorModule,
     TreeSelectModule,
     ReactiveFormsModule,
+    RouterLink,
     CommonModule,
     FloatLabelModule,
     InputTextModule,
@@ -52,23 +57,52 @@ import { AddEditClientComponent } from '../../shared/add-edit-client/add-edit-cl
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ClientListComponent {
+  clientStore = inject(ClientStore);
   @Input() clients!: Client[];
   @ViewChild(DialogConfirmComponent)
   spaceDialog!: DialogConfirmComponent;
+  @ViewChild('dt', { static: false }) table!: Table;
   client = signal<Client | null>(null);
   clientAction = signal<string>('');
   showDialog: boolean = false;
+  UrlEnum = AppUrlEnum;
   globalFilterFields: string[] = table.globalFilterFields;
   mainColumns: { field: string; header: string }[] = table.mainColumns;
+  pagination = computed(() => this.clientStore.pagination());
 
-  legalAddressSortOptions: MenuItem[] = [];
-  actualAddressSortOptions: MenuItem[] = [];
+  currentSort: { field: string; order: number } | null = null;
 
-  @ViewChild('dt', { static: false }) table!: Table;
+  onSortChange(event: any): void {
+    const property = event.multisortmeta[0].field;
+    let direction: 'asc' | 'desc';
 
-  ngOnInit() {}
+    if (this.clientStore.sort().property === property) {
+      direction = this.clientStore.sort().direction === 'asc' ? 'desc' : 'asc';
+    } else {
+      direction = 'desc';
+    }
 
-  //actions
+    this.currentSort = {
+      field: property,
+      order: direction === 'asc' ? 1 : -1,
+    };
+
+    this.clientStore.updateSort({
+      property: property,
+      direction: direction,
+    });
+
+    this.clientStore.loadClients();
+  }
+
+  onPageChange(event: any): void {
+    this.clientStore.updatePagination({
+      pageIndex: event.first / event.rows + 1,
+      pageSize: event.rows,
+    });
+    this.clientStore.loadClients();
+  }
+
   deleteClient(event: Event, id: string) {
     this.spaceDialog.deleteRecord(event, id);
   }
@@ -84,69 +118,3 @@ export class ClientListComponent {
     this.client.set(null);
   }
 }
-
-// <th class="custom-th" (click)="menu2.toggle($event)">
-//         <div class="header-cell">
-//           <span>Legal Address</span>
-//           <i class="pi pi-sort"></i>
-//           <p-menu
-//             #menu1
-//             [popup]="true"
-//             [model]="legalAddressSortOptions"
-//             [appendTo]="'body'"
-//             [baseZIndex]="1000"
-//           ></p-menu>
-//         </div>
-//       </th>
-//       <th class="custom-th" (click)="menu2.toggle($event)">
-//         <div class="header-cell">
-//           <span>Actual Address</span>
-//           <i class="pi pi-sort"></i>
-//           <p-menu
-//             #menu2
-//             [popup]="true"
-//             [model]="actualAddressSortOptions"
-//             [appendTo]="'body'"
-//             [baseZIndex]="1000"
-//           ></p-menu>
-//         </div>
-//       </th>
-//       <th>Actions</th>
-
-// private initSortOptions() {
-//   // this.legalAddressSortOptions = [
-//   //   {
-//   //     label: 'Sort by Country',
-//   //     command: () => this.sortBy('legalAddress.country'),
-//   //   },
-//   //   {
-//   //     label: 'Sort by City',
-//   //     command: () => this.sortBy('legalAddress.city'),
-//   //   },
-//   //   {
-//   //     label: 'Sort by Street',
-//   //     command: () => this.sortBy('legalAddress.street'),
-//   //   },
-//   // ];
-
-//   // this.actualAddressSortOptions = [
-//   //   {
-//   //     label: 'Sort by Country',
-//   //     command: () => this.sortBy('actualAddress.country'),
-//   //   },
-//   //   {
-//   //     label: 'Sort by City',
-//   //     command: () => this.sortBy('actualAddress.city'),
-//   //   },
-//   //   {
-//   //     label: 'Sort by Street',
-//   //     command: () => this.sortBy('actualAddress.street'),
-//   //   },
-//   // ];
-// }
-
-// // sortBy(field: string) {
-// //   this.table.sortOrder = 1;
-// //   this.table.sortField = field;
-// //   this.table.sortSingle();
-// // }
