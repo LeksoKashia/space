@@ -27,7 +27,7 @@ import { ButtonModule } from 'primeng/button';
 import { MenuModule } from 'primeng/menu';
 import { TreeNode } from '../../core/models/node.model';
 import { PrimeIcons } from 'primeng/api';
-import { Tooltip } from 'primeng/tooltip';
+import { Tooltip, TooltipModule } from 'primeng/tooltip';
 import { debounceTime, distinctUntilChanged } from 'rxjs';
 @Component({
   selector: 'space-advanced-filter',
@@ -44,6 +44,7 @@ import { debounceTime, distinctUntilChanged } from 'rxjs';
     ButtonModule,
     MenuModule,
     Tooltip,
+    TooltipModule
   ],
   templateUrl: './advanced-filter.component.html',
   styleUrl: './advanced-filter.component.scss',
@@ -132,6 +133,7 @@ export class AdvancedFilterComponent {
         this.filterFiledsCount--;
       }
     });
+    this.simpleFiltering.get('keyword')?.enable();
     localStorage.removeItem('filter');
     localStorage.setItem('filterForm', JSON.stringify(this.filterForm.value));
     this.clientStore.updateFilter({});
@@ -197,6 +199,8 @@ export class AdvancedFilterComponent {
       if (!this.filterForm.contains(label)) {
         this.filterForm.addControl(label, this.fb.control(''));
         this.filterFiledsCount++;
+        this.simpleFiltering.get('keyword')?.patchValue('');
+        this.simpleFiltering.get('keyword')?.disable();
       }
     });
 
@@ -204,6 +208,9 @@ export class AdvancedFilterComponent {
       if (control !== 'selectedNodes' && !selectedLabels.includes(control)) {
         this.filterForm.removeControl(control);
         this.filterFiledsCount--;
+        if (this.filterFiledsCount == 0) {
+          this.simpleFiltering.get('keyword')?.enable();
+        }
       }
     });
   }

@@ -31,6 +31,7 @@
             />
             <p-button
               (click)="resetForm()"
+              [disabled]="filterFiledsCount < 1"
               label="წაშლა"
               pTooltip="წაშალე გასაფილტრი ინფუთები"
               tooltipPosition="right"
@@ -38,6 +39,7 @@
             />
             <p-button
               (click)="clearForm()"
+              [disabled]="filterFiledsCount < 1"
               pTooltip="გასაფილტრი ინფუთების გასუფთავება"
               tooltipPosition="right"
               label="გასუფთავება"
@@ -85,6 +87,11 @@
             pInputText
             formControlName="keyword"
             type="text"
+            [pTooltip]="
+              filterFiledsCount > 0
+                ? 'დეტაულური ფილტრი წაშალეთ, რათა გამოყენება შეძლოთ'
+                : ''
+            "
             id="keyword"
             class="your-input-classes"
           />
