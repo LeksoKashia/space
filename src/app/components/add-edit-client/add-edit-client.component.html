@@ -230,7 +230,7 @@
       <p-button label="დახურვა" severity="secondary" (click)="onCancel()" />
       <p-button
         [disabled]="clientForm.invalid"
-        label="დამატება"
+        [label]="action() == 'edit' ? 'გაანახლე' : 'დაამატე'"
         type="submit"
       />
     </div>
