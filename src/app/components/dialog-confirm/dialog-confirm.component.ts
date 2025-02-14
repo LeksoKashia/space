@@ -21,17 +21,17 @@ export class DialogConfirmComponent {
   deleteRecord(event: Event, id: string) {
     this.confirmationService.confirm({
       target: event.target as EventTarget,
-      message: 'Do you want to delete this client?',
+      message: 'ნამდვილად გსურთ კლიენტის წაშლა ?',
       header: 'Client Delition',
       icon: 'pi pi-info-circle',
       rejectLabel: 'Cancel',
       rejectButtonProps: {
-        label: 'Cancel',
+        label: 'დახურვა',
         severity: 'secondary',
         outlined: true,
       },
       acceptButtonProps: {
-        label: 'Delete',
+        label: 'წაშლა',
         severity: 'danger',
       },
 
